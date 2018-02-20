@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      <color name="colorFonDefoult">#2b5b8b</color>
+      <color name="colorFon_tovaraDefoult">#4e7ba9</color>
+      <color name="colorFon_tovaraBonus">#1dc69b</color>
+      <color name="colorText_tovarDefoult">#2d081a</color>
+</resources>

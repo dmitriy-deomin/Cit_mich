@@ -9,7 +9,7 @@ class Menu : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu)
-        name_i_version.text = getString(R.string.app_name) + " ver:" + getString(R.string.versionName)
+        name_i_version.text = "версия:" + getString(R.string.versionName)
     }
 
 

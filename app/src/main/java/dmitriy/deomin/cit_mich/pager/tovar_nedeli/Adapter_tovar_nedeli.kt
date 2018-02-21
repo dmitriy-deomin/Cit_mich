@@ -3,15 +3,19 @@ package dmitriy.deomin.cit_mich.pager.tovar_nedeli
 import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.makeramen.roundedimageview.RoundedTransformationBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import dmitriy.deomin.cit_mich.R
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): RecyclerView.Adapter<Adapter_tovar_nedeli.ViewHolder>() {
 
@@ -56,6 +60,18 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
         holder.nalichie.text = items[position]["nalichie"].toString()
 
         Picasso.with(holder.context).load(items[position]["picture"].toString()).fit().transform(transformation).into(holder.ava)
+
+        holder.ava.onClick {
+            //играем анимацию
+            val anim = AnimationUtils.loadAnimation(holder.context, R.anim.alfa)
+            holder.ava.startAnimation(anim)
+
+            Log.e("ggegege",items[position]["podrobno"].toString())
+
+
+        }
+
+
 
     }
 }

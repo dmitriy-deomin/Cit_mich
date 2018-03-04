@@ -4,4 +4,6 @@
       <color name="colorFon_tovaraDefoult">#4e7ba9</color>
       <color name="colorFon_tovaraBonus">#1dc69b</color>
       <color name="colorText_tovarDefoult">#2d081a</color>
+      <color name="colorText_Cena">#740101</color>
+      <color name="colorText_Bonus">#9bb605</color>
 </resources>

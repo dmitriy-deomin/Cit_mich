@@ -16,7 +16,7 @@ import android.widget.ProgressBar
 import dmitriy.deomin.cit_mich.MainActivity
 import dmitriy.deomin.cit_mich.R
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
-import kotlinx.android.synthetic.main.tovar_day.view.*
+import kotlinx.android.synthetic.main.tovar_nedeli.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
@@ -28,12 +28,13 @@ import org.jsoup.select.Elements
 
 class Tovar_nedeli : Fragment() {
 
-    var list_tovar:RecyclerView? = null
-    var progres:ProgressBar?=null
+    lateinit var list_tovar:RecyclerView
+    lateinit var progres:ProgressBar
+    lateinit var broadcastReceiver:BroadcastReceiver
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val result = inflater!!.inflate(R.layout.tovar_day, container, false)
+        val result = inflater!!.inflate(R.layout.tovar_nedeli, container, false)
 
 
         list_tovar = result.list_tovar_nedeli
@@ -47,7 +48,7 @@ class Tovar_nedeli : Fragment() {
         intentFilter.addAction("signal_dla_progressa")
 
         //приёмник  сигналов
-        val broadcastReceiver = object : BroadcastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                visible_progres(intent.getBooleanExtra("visible",false))
             }
@@ -142,11 +143,11 @@ class Tovar_nedeli : Fragment() {
 
     fun visible_progres(v:Boolean=false){
         if(v){
-            progres!!.visibility = View.VISIBLE
-            list_tovar!!.visibility = View.GONE
+            progres.visibility = View.VISIBLE
+            list_tovar.visibility = View.GONE
         }else{
-            progres!!.visibility = View.GONE
-            list_tovar!!.visibility = View.VISIBLE
+            progres.visibility = View.GONE
+            list_tovar.visibility = View.VISIBLE
             load_listview(context)
         }
     }
@@ -154,9 +155,9 @@ class Tovar_nedeli : Fragment() {
     fun load_listview(context:Context){
         val adapter = Adapter_tovar_nedeli(generateData())
         val layoutManager = LinearLayoutManager(context)
-        list_tovar!!.layoutManager = layoutManager
-        list_tovar!!.itemAnimator = DefaultItemAnimator()
-        list_tovar!!.adapter = adapter
+        list_tovar.layoutManager = layoutManager
+        list_tovar.itemAnimator = DefaultItemAnimator()
+        list_tovar.adapter = adapter
     }
 
     private fun generateData(): ArrayList<Map<String, String>> {

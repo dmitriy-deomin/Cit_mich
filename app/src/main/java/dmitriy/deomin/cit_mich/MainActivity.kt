@@ -21,7 +21,10 @@ import org.json.JSONException
 
 
 class MainActivity : FragmentActivity() {
-    var context: Context? = null
+
+    //lateinit  -   это если нельзя сразу определиь
+
+    lateinit var context: Context
     //для логотипа массив картиник
     val images = arrayOf(R.drawable.title1,R.drawable.title2,R.drawable.title3,R.drawable.title4)
 

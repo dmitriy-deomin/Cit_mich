@@ -1,7 +1,9 @@
 package dmitriy.deomin.cit_mich.pager.tovar_nedeli
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +12,10 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.makeramen.roundedimageview.RoundedTransformationBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
+import dmitriy.deomin.cit_mich.Podrobno_o_tovare
 import dmitriy.deomin.cit_mich.R
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -21,7 +23,7 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
 
 
     //для обводки картинок рамкой
-    var transformation: Transformation? = null
+    lateinit var transformation: Transformation
 
     class ViewHolder(row: View) : RecyclerView.ViewHolder(row) {
         var ava: ImageView = row.findViewById<ImageView>(R.id.imageView_ava)
@@ -66,9 +68,10 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
             val anim = AnimationUtils.loadAnimation(holder.context, R.anim.alfa)
             holder.ava.startAnimation(anim)
 
-            Log.e("ggegege",items[position]["podrobno"].toString())
-
-
+            //запускаем активити которая подгрузит остальные данные
+            val intent = Intent(holder.context, Podrobno_o_tovare::class.java)
+            intent.putExtra("podrobno_url",items[position]["podrobno"].toString() )
+            holder.context.startActivity(intent)
         }
 
 

@@ -21,11 +21,12 @@ import dmitriy.deomin.cit_mich.R
 import dmitriy.deomin.cit_mich.pager.kategoris.Adapter_kat_list
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
 import kotlinx.android.synthetic.main.kategoris.view.*
-import kotlinx.android.synthetic.main.tovar_day.view.*
+import kotlinx.android.synthetic.main.tovar_nedeli.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.support.v4.onRefresh
+import org.jetbrains.anko.support.v4.toast
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -34,9 +35,14 @@ import org.jsoup.select.Elements
 
 class Kategoris : Fragment() {
 
+//    override fun onPause() {
+//       context.unregisterReceiver(broadcastReceiver)
+//        super.onPause()
+//    }
 
-    var list_tovar:RecyclerView? = null
-    var progres: ProgressBar?=null
+    lateinit var list_tovar:RecyclerView
+    lateinit var progres: ProgressBar
+    lateinit var broadcastReceiver:BroadcastReceiver
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -52,7 +58,7 @@ class Kategoris : Fragment() {
         intentFilter.addAction("signal_dla_progressa_kat")
 
         //приёмник  сигналов
-        val broadcastReceiver = object : BroadcastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 visible_progres(intent.getBooleanExtra("visible",false))
             }
@@ -92,12 +98,11 @@ class Kategoris : Fragment() {
                     getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa_kat").putExtra("visible", true))
                     //********************************************************
 
-                    val doc: Document? = Jsoup
-                            .connect("http://www.cit-tmb.ru/catalog/")
-                            .timeout(3000)
-                            .get()
+                    val doc: Document? = Jsoup.connect("http://www.cit-tmb.ru/catalog/").get()
+
+
                     //блок со всем списком товаровов
-                    val element: Element = doc!!.select(".bx_catalog_text").first()
+                    val element: Element = doc?.select(".bx_catalog_text")!!.first()
 
 
                     //список товаров списком
@@ -131,11 +136,11 @@ class Kategoris : Fragment() {
 
     fun visible_progres(v:Boolean=false){
         if(v){
-            progres!!.visibility = View.VISIBLE
-            list_tovar!!.visibility = View.GONE
+            progres.visibility = View.VISIBLE
+            list_tovar.visibility = View.GONE
         }else{
-            progres!!.visibility = View.GONE
-            list_tovar!!.visibility = View.VISIBLE
+            progres.visibility = View.GONE
+            list_tovar.visibility = View.VISIBLE
             load_listview(context)
         }
     }
@@ -143,9 +148,9 @@ class Kategoris : Fragment() {
     fun load_listview(context:Context){
         val adapter = Adapter_kat_list(generateData())
         val layoutManager = LinearLayoutManager(context)
-        list_tovar!!.layoutManager = layoutManager
-        list_tovar!!.itemAnimator = DefaultItemAnimator()
-        list_tovar!!.adapter = adapter
+        list_tovar.layoutManager = layoutManager
+        list_tovar.itemAnimator = DefaultItemAnimator()
+        list_tovar.adapter = adapter
     }
 
     private fun generateData(): ArrayList<Map<String, String>> {

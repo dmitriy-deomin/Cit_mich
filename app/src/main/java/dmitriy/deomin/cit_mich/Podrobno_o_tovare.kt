@@ -45,8 +45,8 @@ class Podrobno_o_tovare : Activity() {
         //для обводки картинок рамкой с скруглением
         transformation = RoundedTransformationBuilder()
                 .borderColor(Color.BLACK)
-                .borderWidthDp(1F)
-                .cornerRadiusDp(10F)
+                .borderWidthDp(0.5F)
+                .cornerRadiusDp(5F)
                 .oval(false)
                 .build()
 
@@ -88,35 +88,35 @@ class Podrobno_o_tovare : Activity() {
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava1.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava2.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava2.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[1]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava3.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava3.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[2]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava4.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava4.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[3]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava5.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava5.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[4]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.with(ctx).load(url_pik[4]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
 
 
@@ -128,30 +128,27 @@ class Podrobno_o_tovare : Activity() {
                         val doc: Document? = Jsoup.connect(podrobno_url).get()
 
                         //название товара
-                        val title: String? = doc?.select(".bx_item_title")?.first()?.text()
+                        val title: String? = doc?.selectFirst(".bx_item_title")?.text()?:"-"
                         //артикул
-                        val artikul: String? = doc?.select(".articul")?.first()?.text()
+                        val artikul: String? = doc?.selectFirst(".articul")?.text()?:"-"
                         //цена
-                        val cena: String? = doc?.select(".item_current_price")?.first()?.text()
+                        val cena: String? = doc?.selectFirst(".item_current_price")?.text()?:"-"
                         //бонусы
-                        val bonus: String? = doc?.select(".bonus-section")?.first()?.text()
+                        val bonus: String? = doc?.selectFirst(".bonus-section")?.text()?:"-"
                         //наличие товара
-                        val nalichie: String? = doc?.select(".item_buttons")?.first()?.text()?.substring(10,35)
+                        val nalichie: String? = doc?.selectFirst(".item_buttons")?.text()?.substring(10,35)?:"-"
                         //описание товара полное
-                        val opisanie: String? = doc?.select(".bx_item_description")?.first()?.toString()
+                        val opisanie: String? = doc?.selectFirst(".bx_item_description")?.toString()
                                 ?.replace("br","\n")
                                 ?.replace("&nbsp;","")
                                 ?.substringBefore("</p>")
-                                ?.substringAfter("hidden;\">")
+                                ?.substringAfter("hidden;\">")?:"-"
 
-                        Log.e("svsvv",opisanie)
-
-
-                        val pik_list:Elements = doc!!.select(".bx_slide").first().select("li")
+                        val pik_list:Elements = doc?.selectFirst(".bx_slide")?.select("li")!!
 
                         var kesh:String
                         for (i in pik_list.indices) {
-                            kesh =  pik_list.get(i).select(".cnt_item").attr("style")
+                            kesh = pik_list[i]?.selectFirst(".cnt_item")?.attr("style")!!
                             url_pik.add(i,"http://www.cit-tmb.ru"+kesh.substring(22,kesh.length-3))
                         }
 
@@ -183,7 +180,7 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava4.visibility = View.GONE
                 imageView_ava5.visibility =View.GONE
                 //рисуем картинку
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
             }
             (img_count == 2) -> {
                 imageView_ava1.visibility =View.VISIBLE
@@ -191,9 +188,9 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.GONE
                 imageView_ava4.visibility =View.GONE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).fit().transform(transformation).into(imageView_ava2)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
             }
             (img_count == 3) -> {
                 imageView_ava1.visibility =View.VISIBLE
@@ -201,10 +198,10 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.GONE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).fit().transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).fit().transform(transformation).into(imageView_ava3)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
             }
             (img_count == 4)->{
                 imageView_ava1.visibility =View.VISIBLE
@@ -212,24 +209,24 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.VISIBLE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).fit().transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).fit().transform(transformation).into(imageView_ava3)
-                Picasso.with(ctx).load(url_pik[3]).fit().transform(transformation).into(imageView_ava4)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
+                Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava4)
             }
-            (img_count == 5)->{
+            (img_count > 4 )->{
                 imageView_ava1.visibility =View.VISIBLE
                 imageView_ava2.visibility =View.VISIBLE
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.VISIBLE
                 imageView_ava5.visibility =View.VISIBLE
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).fit().transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).fit().transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).fit().transform(transformation).into(imageView_ava3)
-                Picasso.with(ctx).load(url_pik[3]).fit().transform(transformation).into(imageView_ava4)
-                Picasso.with(ctx).load(url_pik[4]).fit().transform(transformation).into(imageView_ava5)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
+                Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava4)
+                Picasso.with(ctx).load(url_pik[4]).transform(transformation).into(imageView_ava5)
             }
         }
     }

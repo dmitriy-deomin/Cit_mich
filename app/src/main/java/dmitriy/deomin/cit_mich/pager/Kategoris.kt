@@ -102,11 +102,11 @@ class Kategoris : Fragment() {
 
 
                     //блок со всем списком товаровов
-                    val element: Element = doc?.select(".bx_catalog_text")!!.first()
+                    val element: Element = doc?.selectFirst(".bx_catalog_text")!!
 
 
                     //список товаров списком
-                    val elements: Elements = element.select(".bx_catalog_text_title")
+                    val elements: Elements = element?.select(".bx_catalog_text_title")
 
                     //временые переменые для хранения
                    val title: ArrayList<String> = ArrayList()
@@ -115,10 +115,9 @@ class Kategoris : Fragment() {
 
                     //заполняем в цикле их
                     for (i in elements.indices) {
-                        title.add(i,elements.get(i).select("a").first().text())
-                        title_url.add(i, "http://www.cit-tmb.ru" + elements.get(i).select("a")
-                                .first()
-                                .attr("href"))
+                        title.add(i,elements[i]?.selectFirst("a")?.text()?:"-")
+                        title_url.add(i, "http://www.cit-tmb.ru" + elements[i]?.selectFirst("a")
+                                ?.attr("href"))
                     }
                     //и сохраняем в память все
                     MainActivity.save_arraylist("title_list_kateg", title)

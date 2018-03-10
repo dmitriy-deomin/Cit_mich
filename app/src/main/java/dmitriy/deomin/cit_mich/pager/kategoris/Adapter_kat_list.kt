@@ -49,6 +49,7 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
             //при клике на категорию будем открывать все товары списком
             val intent = Intent(holder.context, List_tovarov::class.java)
             intent.putExtra("url_list_polniy",items[position]["title_url"].toString())
+            intent.putExtra("name_kat",items[position]["title"].toString())
             holder.context.startActivity(intent)
 
         }
@@ -75,4 +76,9 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
     fun open_kategoriu(kat:String){
 
     }
+
+
+
+
+
 }

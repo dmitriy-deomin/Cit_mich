@@ -18,6 +18,10 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onPageChangeListener
 import org.json.JSONArray
 import org.json.JSONException
+import android.net.NetworkInfo
+import android.net.ConnectivityManager
+
+
 
 
 class MainActivity : FragmentActivity() {

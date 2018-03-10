@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -90,10 +91,8 @@ class Tovar_nedeli : Fragment() {
                     getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa").putExtra("visible", true))
                     //********************************************************
 
-                    val doc: Document? = Jsoup
-                            .connect("http://www.cit-tmb.ru/catalog/tovar-nedeli/")
-                            .timeout(3000)
-                            .get()
+                    val doc: Document? = Jsoup.connect("http://www.cit-tmb.ru/catalog/tovar-nedeli/").get()
+
                     //блок со всем списком товаровов недели
                     val element: Element = doc!!.select(".bx_item_list_slide").first()
 
@@ -110,18 +109,15 @@ class Tovar_nedeli : Fragment() {
 
                     //заполняем в цикле их
                     for (i in elements.indices) {
-                        bonus.add(i, elements.get(i).select(".bonus-section-list").text())
-                        title.add(i, elements.get(i).select(".bx_catalog_item_title").text())
-                        cena.add(i, elements.get(i).select(".bx_catalog_item_price").text())
-                        nalichie.add(i, elements.get(i).select(".quantity_block").text())
-                        podrobno.add(i, "http://www.cit-tmb.ru" + elements.get(i).select("a")
-                                .first()
-                                .attr("href"))
-                        picture.add(i, "http://www.cit-tmb.ru" + elements.get(i).select("a")
-                                .first()
-                                .attr("style")
-                                .substring(22)
-                                .replace(")", ""))
+                        bonus.add(i, elements[i]?.selectFirst(".bonus-section-list")?.text()?:"-")
+                        title.add(i, elements[i]?.selectFirst(".bx_catalog_item_title")?.text()?:"-")
+                        cena.add(i, elements[i]?.selectFirst(".bx_catalog_item_price")?.text()?:"-")
+                        nalichie.add(i, elements[i]?.selectFirst(".quantity_block")?.text()?:"-")
+                        podrobno.add(i, "http://www.cit-tmb.ru" + elements[i]?.selectFirst("a")?.attr("href"))
+                        picture.add(i, "http://www.cit-tmb.ru" + elements[i]?.selectFirst("a")
+                                ?.attr("style")
+                                ?.substring(22)
+                                ?.replace(")", ""))
                     }
                     //и сохраняем в память все
                     MainActivity.save_arraylist("bonus_nedeli", bonus)

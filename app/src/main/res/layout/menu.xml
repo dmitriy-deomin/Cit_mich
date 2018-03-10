@@ -37,7 +37,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="jsoup, picasso"
+        android:text="jsoup, picasso,recyclerview-fastscroll"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 

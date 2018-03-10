@@ -40,8 +40,8 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
 
         transformation = RoundedTransformationBuilder()
                 .borderColor(Color.BLACK)
-                .borderWidthDp(1F)
-                .cornerRadiusDp(10F)
+                .borderWidthDp(0.5F)
+                .cornerRadiusDp(5F)
                 .oval(false)
                 .build()
 
@@ -61,7 +61,7 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
         holder.bonus.text = items[position]["bonus"].toString()
         holder.nalichie.text = items[position]["nalichie"].toString()
 
-        Picasso.with(holder.context).load(items[position]["picture"].toString()).fit().transform(transformation).into(holder.ava)
+        Picasso.with(holder.context).load(items[position]["picture"].toString()).transform(transformation).into(holder.ava)
 
         holder.ava.onClick {
             //играем анимацию

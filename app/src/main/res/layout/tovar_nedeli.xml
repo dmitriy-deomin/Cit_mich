@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- TODO: Update blank fragment layout -->
     <ProgressBar
@@ -13,10 +16,11 @@
         android:id="@+id/conteiner_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_tovar_nedeli"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+            android:id="@+id/list_tovar_nedeli"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:fastScrollThumbColor="@color/colorscroll"
+            app:fastScrollAutoHide="false"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.LinearLayout
 import dmitriy.deomin.cit_mich.List_tovarov
+import dmitriy.deomin.cit_mich.Main
 import dmitriy.deomin.cit_mich.Podrobno_o_tovare
 import dmitriy.deomin.cit_mich.R
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -37,6 +38,12 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        //устанавливаем шрифт
+        //----------------------------------------------
+        holder.txtName.typeface = Main.face
+        holder.open_kat.typeface = Main.face
+        //---------------------------------------------
 
         //ставим название категории
         holder.txtName.text = items[position]["title"].toString()

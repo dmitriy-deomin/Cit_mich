@@ -42,6 +42,17 @@ class Podrobno_o_tovare : Activity() {
         //во весь экран
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+
+        //установим шрифт
+        //-----------------------------------
+        textView_name_tovara_podrobno.typeface = Main.face
+        textView_artikul_tovara_podrobno.typeface = Main.face
+        textView_cena_tovara_podrobno.typeface = Main.face
+        textView_bonus_tovara_podrobno.typeface = Main.face
+        textView_nalichie_tovara_podrobno.typeface = Main.face
+        textView_opisanie_tovara_podrobno.typeface = Main.face
+        //------------------------------------------------------
+
         //для обводки картинок рамкой с скруглением
         transformation = RoundedTransformationBuilder()
                 .borderColor(Color.BLACK)

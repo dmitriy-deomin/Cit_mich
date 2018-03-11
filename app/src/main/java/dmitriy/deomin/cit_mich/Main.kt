@@ -18,13 +18,9 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onPageChangeListener
 import org.json.JSONArray
 import org.json.JSONException
-import android.net.NetworkInfo
-import android.net.ConnectivityManager
 
 
-
-
-class MainActivity : FragmentActivity() {
+class Main : FragmentActivity() {
 
     //lateinit  -   это если нельзя сразу определиь
 
@@ -38,15 +34,39 @@ class MainActivity : FragmentActivity() {
         //для текста
         var text: Spannable? = null
 
+
+        var COLOR_FON: Int = 0
+        var COLOR_ITEM: Int = 0
+        var COLOR_TEXT: Int = 0
+
         //сохранялка
         //----------------------------------------------------------------
         var settings: SharedPreferences? = null // сохранялка
-        //чтение настроек
-        fun read_str(key:String):String{ if(ne_pusto(key)){return settings!!.getString(key,"")}else{return ""} }
-        fun ne_pusto(key:String):Boolean{return settings!!.contains(key)}
-        //запись настроек
-        fun save_str(key:String,value:String){ settings!!.edit().putString(key,value).apply() }
-        //----------------------------------------------------------------
+
+        fun save_value(Key: String, Value: String) { //сохранение строки
+            val editor = settings!!.edit()
+            editor.putString(Key, Value)
+            editor.apply()
+        }
+
+        fun save_read(key_save: String): String {  // чтение настройки
+            return if (settings!!.contains(key_save)) {
+                settings!!.getString(key_save, "")
+            } else ""
+        }
+
+        fun save_value_int(Key: String, Value: Int) { //сохранение строки
+            val editor = settings!!.edit()
+            editor.putInt(Key, Value)
+            editor.apply()
+        }
+
+        fun save_read_int(key_save: String): Int {  // чтение настройки
+            return if (settings!!.contains(key_save)) {
+                settings!!.getInt(key_save, 0)
+            } else 0
+        }
+
 
         //*************************************************************************************************
         //ArrayList
@@ -93,7 +113,35 @@ class MainActivity : FragmentActivity() {
         context = this
 
         settings = getSharedPreferences("mysettings", FragmentActivity.MODE_PRIVATE)
-        face = Typeface.createFromAsset(assets, if (read_str("fonts") == "") "fonts/Tweed.ttf" else read_str("fonts"))
+        face = Typeface.createFromAsset(assets, if (save_read("fonts") == "") "fonts/Tweed.ttf" else save_read("fonts"))
+
+
+        //ставим цвет фона
+        if (save_read_int("color_fon") == 0) {
+            COLOR_FON = resources.getColor(R.color.colorFonDefoult)
+        } else {
+            COLOR_FON = save_read_int("color_fon")
+        }
+        //ставим цвет постов
+        if (save_read_int("color_post1") == 0) {
+            COLOR_ITEM = resources.getColor(R.color.colorFon_tovaraDefoult)
+        } else {
+            COLOR_ITEM = save_read_int("color_post1")
+        }
+        //ставим цвеи текста
+        if (save_read_int("color_text") == 0) {
+            COLOR_TEXT = resources.getColor(R.color.colorText_tovarDefoult)
+        } else {
+            COLOR_TEXT = save_read_int("color_text")
+        }
+
+        //устанавлваем шрифр
+        //-------------------------------------------
+        but_news.typeface= face
+        but_tovar_dna.typeface= face
+        but_kagoriy.typeface= face
+        but_info.typeface= face
+        //---------------------------------------------
 
         val adapter = adapter(supportFragmentManager)
         val viewpager = findViewById<View>(R.id.pager) as ViewPager
@@ -132,7 +180,7 @@ class MainActivity : FragmentActivity() {
 
         //При клике на лого покажем меню программы
         imageSwitcher.onClick {
-            val anim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.alfa)
+            val anim = AnimationUtils.loadAnimation(this@Main, R.anim.alfa)
             imageSwitcher.startAnimation(anim)
             startActivity<Menu>()
         }

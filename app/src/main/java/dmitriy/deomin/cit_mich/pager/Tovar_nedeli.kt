@@ -9,12 +9,11 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.ProgressBar
-import dmitriy.deomin.cit_mich.MainActivity
+import dmitriy.deomin.cit_mich.Main
 import dmitriy.deomin.cit_mich.R
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
 import kotlinx.android.synthetic.main.tovar_nedeli.view.*
@@ -61,12 +60,12 @@ class Tovar_nedeli : Fragment() {
         result.conteiner_swipe.onRefresh {
             result.conteiner_swipe.isRefreshing = false
             //удаляем сохранялки
-            MainActivity.save_arraylist("bonus_nedeli", ArrayList())
-            MainActivity.save_arraylist("title_nedeli", ArrayList())
-            MainActivity.save_arraylist("cena_nedeli", ArrayList())
-            MainActivity.save_arraylist("nalichie_nedeli", ArrayList())
-            MainActivity.save_arraylist("podrobno_nedeli", ArrayList())
-            MainActivity.save_arraylist("picture_nedeli", ArrayList())
+            Main.save_arraylist("bonus_nedeli", ArrayList())
+            Main.save_arraylist("title_nedeli", ArrayList())
+            Main.save_arraylist("cena_nedeli", ArrayList())
+            Main.save_arraylist("nalichie_nedeli", ArrayList())
+            Main.save_arraylist("podrobno_nedeli", ArrayList())
+            Main.save_arraylist("picture_nedeli", ArrayList())
             start()
         }
 
@@ -78,7 +77,7 @@ class Tovar_nedeli : Fragment() {
     }
 
     fun start(){
-        val title:ArrayList<String> = MainActivity.read_arraylist("title_nedeli")
+        val title:ArrayList<String> = Main.read_arraylist("title_nedeli")
         //если есть сохранёные данные загрузим их
         if(title.size>1){
             visible_progres(false)
@@ -120,12 +119,12 @@ class Tovar_nedeli : Fragment() {
                                 ?.replace(")", ""))
                     }
                     //и сохраняем в память все
-                    MainActivity.save_arraylist("bonus_nedeli", bonus)
-                    MainActivity.save_arraylist("title_nedeli", title)
-                    MainActivity.save_arraylist("cena_nedeli", cena)
-                    MainActivity.save_arraylist("nalichie_nedeli", nalichie)
-                    MainActivity.save_arraylist("podrobno_nedeli", podrobno)
-                    MainActivity.save_arraylist("picture_nedeli", picture)
+                    Main.save_arraylist("bonus_nedeli", bonus)
+                    Main.save_arraylist("title_nedeli", title)
+                    Main.save_arraylist("cena_nedeli", cena)
+                    Main.save_arraylist("nalichie_nedeli", nalichie)
+                    Main.save_arraylist("podrobno_nedeli", podrobno)
+                    Main.save_arraylist("picture_nedeli", picture)
 
                     //пошлём сигнал для скрытия прогрессбара
                     //********************************************************
@@ -159,12 +158,12 @@ class Tovar_nedeli : Fragment() {
     private fun generateData(): ArrayList<Map<String, String>> {
 
         //временые переменые для хранения
-        val bonus:ArrayList<String> = MainActivity.read_arraylist("bonus_nedeli")
-        val title:ArrayList<String> = MainActivity.read_arraylist("title_nedeli")
-        val cena:ArrayList<String> = MainActivity.read_arraylist("cena_nedeli")
-        val nalichie:ArrayList<String> = MainActivity.read_arraylist("nalichie_nedeli")
-        val podrobno:ArrayList<String> = MainActivity.read_arraylist("podrobno_nedeli")
-        val picture:ArrayList<String> = MainActivity.read_arraylist("picture_nedeli")
+        val bonus:ArrayList<String> = Main.read_arraylist("bonus_nedeli")
+        val title:ArrayList<String> = Main.read_arraylist("title_nedeli")
+        val cena:ArrayList<String> = Main.read_arraylist("cena_nedeli")
+        val nalichie:ArrayList<String> = Main.read_arraylist("nalichie_nedeli")
+        val podrobno:ArrayList<String> = Main.read_arraylist("podrobno_nedeli")
+        val picture:ArrayList<String> = Main.read_arraylist("picture_nedeli")
 
 
         val result = ArrayList<Map<String,String>>()

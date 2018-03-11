@@ -9,7 +9,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_tittle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -27,6 +27,7 @@
         android:textColor="@android:color/black" />
 
     <TextView
+        android:id="@+id/used_library"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="использовались библиотеки:"
@@ -34,7 +35,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_librariry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="jsoup, picasso,recyclerview-fastscroll"
@@ -42,10 +43,17 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_ifo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" Вся информация ,каталог товаров берется с www.cit-tmb.ru"
         android:textColor="@android:color/black"
         android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/button_edit_fonts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Изменить шрифт" />
 </LinearLayout>

@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
 import kotlinx.android.synthetic.main.list_tovarov.*
@@ -24,11 +23,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
-import android.os.AsyncTask.execute
-import android.util.Log
-import org.jsoup.helper.HttpConnection
-
-
 
 
 //универсальный класс для всех типов товаров с подгрузкой страниц, и сменой вида списка
@@ -68,6 +62,11 @@ class List_tovarov : Activity() {
         progres_list = progress_load_tovari_spisok
 
 
+        //установим шрифт
+        //---------------------------
+        button_title_list.typeface = Main.face
+        //-------------------------------
+
         //и будем слушать сигналы
         //***************************************************************************
         //фильтр для нашего сигнала из сервиса
@@ -90,12 +89,12 @@ class List_tovarov : Activity() {
 
             conteiner_swipe_list_tovarov.isRefreshing=false
             //удаляем сохранялки
-            MainActivity.save_arraylist("bonus"+url_list, ArrayList())
-            MainActivity.save_arraylist("title"+url_list, ArrayList())
-            MainActivity.save_arraylist("cena"+url_list, ArrayList())
-            MainActivity.save_arraylist("nalichie"+url_list, ArrayList())
-            MainActivity.save_arraylist("podrobno"+url_list, ArrayList())
-            MainActivity.save_arraylist("picture"+url_list, ArrayList())
+            Main.save_arraylist("bonus"+url_list, ArrayList())
+            Main.save_arraylist("title"+url_list, ArrayList())
+            Main.save_arraylist("cena"+url_list, ArrayList())
+            Main.save_arraylist("nalichie"+url_list, ArrayList())
+            Main.save_arraylist("podrobno"+url_list, ArrayList())
+            Main.save_arraylist("picture"+url_list, ArrayList())
 
             start()
         }
@@ -108,7 +107,7 @@ class List_tovarov : Activity() {
     }
 
     fun start() {
-        val title: ArrayList<String> = MainActivity.read_arraylist("title"+url_list)
+        val title: ArrayList<String> = Main.read_arraylist("title"+url_list)
         //если есть сохранёные данные загрузим их(загрузка сразу после выключчения анимации)
         if (title.size > 1) {
             run_animacia(false)
@@ -130,7 +129,7 @@ class List_tovarov : Activity() {
                     button_title_list.text = "Загруженно"
 
                     //блок со всем списком товаровов
-                    val element: Element? = doc?.select(".bx_catalog_list_home")?.first()!!
+                    val element: Element? = doc?.selectFirst(".bx_catalog_list_home")!!
 
                     //Напишем что идёт загрузка данных
                     button_title_list.text = "Составленно"
@@ -171,12 +170,12 @@ class List_tovarov : Activity() {
 
 
                     //и сохраняем в память все
-                    MainActivity.save_arraylist("bonus" + url_list, bonus)
-                    MainActivity.save_arraylist("title" + url_list, title)
-                    MainActivity.save_arraylist("cena" + url_list, cena)
-                    MainActivity.save_arraylist("nalichie" + url_list, nalichie)
-                    MainActivity.save_arraylist("podrobno" + url_list, podrobno)
-                    MainActivity.save_arraylist("picture" + url_list, picture)
+                    Main.save_arraylist("bonus" + url_list, bonus)
+                    Main.save_arraylist("title" + url_list, title)
+                    Main.save_arraylist("cena" + url_list, cena)
+                    Main.save_arraylist("nalichie" + url_list, nalichie)
+                    Main.save_arraylist("podrobno" + url_list, podrobno)
+                    Main.save_arraylist("picture" + url_list, picture)
 
 
                     //Напишем что идёт загрузка данных
@@ -215,12 +214,12 @@ class List_tovarov : Activity() {
     fun generateData(): ArrayList<Map<String, String>> {
 
         //временые переменые для хранения
-        val bonus: ArrayList<String> = MainActivity.read_arraylist("bonus" + url_list)
-        val title: ArrayList<String> = MainActivity.read_arraylist("title" + url_list)
-        val cena: ArrayList<String> = MainActivity.read_arraylist("cena" + url_list)
-        val nalichie: ArrayList<String> = MainActivity.read_arraylist("nalichie" + url_list)
-        val podrobno: ArrayList<String> = MainActivity.read_arraylist("podrobno" + url_list)
-        val picture: ArrayList<String> = MainActivity.read_arraylist("picture" + url_list)
+        val bonus: ArrayList<String> = Main.read_arraylist("bonus" + url_list)
+        val title: ArrayList<String> = Main.read_arraylist("title" + url_list)
+        val cena: ArrayList<String> = Main.read_arraylist("cena" + url_list)
+        val nalichie: ArrayList<String> = Main.read_arraylist("nalichie" + url_list)
+        val podrobno: ArrayList<String> = Main.read_arraylist("podrobno" + url_list)
+        val picture: ArrayList<String> = Main.read_arraylist("picture" + url_list)
 
 
         //поставим в титл название категории и количество товаров

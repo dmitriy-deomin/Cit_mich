@@ -6,27 +6,21 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.support.v4.app.Fragment
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.widget.Adapter
 import android.widget.ProgressBar
-import dmitriy.deomin.cit_mich.MainActivity
+import dmitriy.deomin.cit_mich.Main
 import dmitriy.deomin.cit_mich.R
 import dmitriy.deomin.cit_mich.pager.kategoris.Adapter_kat_list
-import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
 import kotlinx.android.synthetic.main.kategoris.view.*
-import kotlinx.android.synthetic.main.tovar_nedeli.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.toast
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -70,8 +64,8 @@ class Kategoris : Fragment() {
         v.conteiner_swipe_kategorii.onRefresh {
             v.conteiner_swipe_kategorii.isRefreshing = false
             //удаляем сохранялки
-            MainActivity.save_arraylist("title_list_kateg", ArrayList())
-            MainActivity.save_arraylist("title_url_list_kateg", ArrayList())
+            Main.save_arraylist("title_list_kateg", ArrayList())
+            Main.save_arraylist("title_url_list_kateg", ArrayList())
             start()
         }
 
@@ -85,7 +79,7 @@ class Kategoris : Fragment() {
 
 
     fun start(){
-        val title:ArrayList<String> = MainActivity.read_arraylist("title_list_kateg")
+        val title:ArrayList<String> = Main.read_arraylist("title_list_kateg")
         //если есть сохранёные данные загрузим их
         if(title.size>1){
             visible_progres(false)
@@ -120,8 +114,8 @@ class Kategoris : Fragment() {
                                 ?.attr("href"))
                     }
                     //и сохраняем в память все
-                    MainActivity.save_arraylist("title_list_kateg", title)
-                    MainActivity.save_arraylist("title_url_list_kateg", title_url)
+                    Main.save_arraylist("title_list_kateg", title)
+                    Main.save_arraylist("title_url_list_kateg", title_url)
 
                     //пошлём сигнал для скрытия прогрессбара
                     //********************************************************
@@ -155,8 +149,8 @@ class Kategoris : Fragment() {
     private fun generateData(): ArrayList<Map<String, String>> {
 
         //временые переменые для хранения
-        val title:ArrayList<String> = MainActivity.read_arraylist("title_list_kateg")
-        val title_url:ArrayList<String> = MainActivity.read_arraylist("title_url_list_kateg")
+        val title:ArrayList<String> = Main.read_arraylist("title_list_kateg")
+        val title_url:ArrayList<String> = Main.read_arraylist("title_url_list_kateg")
 
 
         val result = ArrayList<Map<String,String>>()

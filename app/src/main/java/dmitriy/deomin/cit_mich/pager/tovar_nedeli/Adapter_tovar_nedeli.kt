@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.makeramen.roundedimageview.RoundedTransformationBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
+import dmitriy.deomin.cit_mich.Main
 import dmitriy.deomin.cit_mich.Podrobno_o_tovare
 import dmitriy.deomin.cit_mich.R
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -54,6 +55,15 @@ class Adapter_tovar_nedeli(private var items: ArrayList<Map<String, String>>): R
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        //устанавливаем шрифт
+        //--------------------------------------------------
+        holder.name.typeface = Main.face
+        holder.mani.typeface = Main.face
+        holder.bonus.typeface = Main.face
+        holder.nalichie.typeface = Main.face
+        //--------------------------------------------------------
+
 
         //ставим название товара и прочие
         holder.name.text = items[position]["name"].toString()

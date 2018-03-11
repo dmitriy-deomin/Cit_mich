@@ -10,11 +10,11 @@ android {
         applicationId "dmitriy.deomin.cit_mich"
         minSdkVersion 15
         targetSdkVersion 19
-        versionCode 1
-        versionName "0.1"
+        versionCode 2
+        versionName "0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    //эта дич нужна чтобы получить ебучию версию приложения стрингом
+    //эта дич нужна чтобы получить версию приложения стрингом
     //--------------------------
     applicationVariants.all { variant ->
         variant.resValue "string", "versionName", variant.versionName

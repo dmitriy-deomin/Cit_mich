@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorFonDefoult"
     android:orientation="vertical"
-    tools:context="dmitriy.deomin.cit_mich.MainActivity">
+    tools:context="dmitriy.deomin.cit_mich.Main">
 
 
     <ImageSwitcher

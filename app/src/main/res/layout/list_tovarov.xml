@@ -8,39 +8,28 @@
     android:orientation="vertical"
     tools:context=".List_tovarov">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/button_title_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="Категория и количество товаров"
+        android:textColor="@color/colorText_tovarDefoult"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_title_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="Категория и количество товаров"
-            android:textColor="@color/colorText_tovarDefoult"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_load_tovari_spisok"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large.Inverse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/conteiner_swipe_list_tovarov"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
         <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
             android:id="@+id/list_tovary_spisok"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:fastScrollThumbColor="@color/colorscroll"
-            app:fastScrollAutoHide="false"/>
+            app:fastScrollAutoHide="false"
+            app:fastScrollThumbColor="@color/colorscroll" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

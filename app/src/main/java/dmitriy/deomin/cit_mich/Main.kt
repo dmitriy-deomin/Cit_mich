@@ -1,5 +1,6 @@
 package dmitriy.deomin.cit_mich
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -101,8 +102,7 @@ class Main : FragmentActivity() {
             return urls
         }
         //*************************************************************************************************
-
-    }
+      }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -186,7 +186,6 @@ class Main : FragmentActivity() {
         }
 
     }
-
 
     private fun fon_butn(number:Int){
         when(number){

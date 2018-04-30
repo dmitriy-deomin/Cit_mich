@@ -15,9 +15,8 @@ class Info : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val result = inflater!!.inflate(R.layout.info, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val result = inflater.inflate(R.layout.info, container, false)
         return result
     }
 

@@ -13,9 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.ProgressBar
+import android.widget.TextView
 import dmitriy.deomin.cit_mich.Main
 import dmitriy.deomin.cit_mich.R
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
+import kotlinx.android.synthetic.main.tovar_nedeli.*
 import kotlinx.android.synthetic.main.tovar_nedeli.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -25,20 +27,22 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import java.util.*
 
 class Tovar_nedeli : Fragment() {
 
     lateinit var list_tovar:RecyclerView
     lateinit var progres:ProgressBar
     lateinit var broadcastReceiver:BroadcastReceiver
+    lateinit var text_update_date:TextView
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val result = inflater!!.inflate(R.layout.tovar_nedeli, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val result = inflater.inflate(R.layout.tovar_nedeli, container, false)
 
 
         list_tovar = result.list_tovar_nedeli
         progres = result.progress_load_tovar_nedeli
+        text_update_date = result.data_update_data_nedeli
 
 
         //и будем слушать сигналы
@@ -81,13 +85,22 @@ class Tovar_nedeli : Fragment() {
         //если есть сохранёные данные загрузим их
         if(title.size>1){
             visible_progres(false)
+            //покажем дату обновления данных
+            if(Main.save_read("tovar_nedeli")==Main.return_data()){
+                //если свежак скроем
+                text_update_date.visibility=View.GONE
+            }else{
+                text_update_date.visibility=View.VISIBLE
+                text_update_date.text = "Данные от "+Main.save_read("tovar_nedeli")
+            }
+
         }else {
             async(UI) {
                 //выполняем в новом потоке хрень
                 bg {
                     //пошлём сигнал для показа прогрессбара
                     //********************************************************
-                    getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa").putExtra("visible", true))
+                    getContext()!!.applicationContext.sendBroadcast(Intent("signal_dla_progressa").putExtra("visible", true))
                     //********************************************************
 
                     val doc: Document? = Jsoup.connect("http://www.cit-tmb.ru/catalog/tovar-nedeli/").get()
@@ -100,7 +113,7 @@ class Tovar_nedeli : Fragment() {
 
                     //временые переменые для хранения
                     val bonus: ArrayList<String> = ArrayList()
-                    val title: ArrayList<String> = ArrayList()
+                    val titles: ArrayList<String> = ArrayList()
                     val cena: ArrayList<String> = ArrayList()
                     val nalichie: ArrayList<String> = ArrayList()
                     val podrobno: ArrayList<String> = ArrayList()
@@ -109,7 +122,7 @@ class Tovar_nedeli : Fragment() {
                     //заполняем в цикле их
                     for (i in elements.indices) {
                         bonus.add(i, elements[i]?.selectFirst(".bonus-section-list")?.text()?:"-")
-                        title.add(i, elements[i]?.selectFirst(".bx_catalog_item_title")?.text()?:"-")
+                        titles.add(i, elements[i]?.selectFirst(".bx_catalog_item_title")?.text()?:"-")
                         cena.add(i, elements[i]?.selectFirst(".bx_catalog_item_price")?.text()?:"-")
                         nalichie.add(i, elements[i]?.selectFirst(".quantity_block")?.text()?:"-")
                         podrobno.add(i, "http://www.cit-tmb.ru" + elements[i]?.selectFirst("a")?.attr("href"))
@@ -120,15 +133,18 @@ class Tovar_nedeli : Fragment() {
                     }
                     //и сохраняем в память все
                     Main.save_arraylist("bonus_nedeli", bonus)
-                    Main.save_arraylist("title_nedeli", title)
+                    Main.save_arraylist("title_nedeli", titles)
                     Main.save_arraylist("cena_nedeli", cena)
                     Main.save_arraylist("nalichie_nedeli", nalichie)
                     Main.save_arraylist("podrobno_nedeli", podrobno)
                     Main.save_arraylist("picture_nedeli", picture)
 
+                    Main.save_value("tovar_nedeli",Main.return_data())
+
+
                     //пошлём сигнал для скрытия прогрессбара
                     //********************************************************
-                    getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa")
+                    getContext()!!.applicationContext.sendBroadcast(Intent("signal_dla_progressa")
                             .putExtra("visible", false))
                     //********************************************************
                 }
@@ -143,7 +159,9 @@ class Tovar_nedeli : Fragment() {
         }else{
             progres.visibility = View.GONE
             list_tovar.visibility = View.VISIBLE
-            load_listview(context)
+            //если свежак скроем
+            text_update_date.visibility=View.GONE
+            load_listview(this.context!!)
         }
     }
 

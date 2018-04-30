@@ -20,6 +20,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): RecyclerView.Adapter<Adapter_kat_list.ViewHolder>() {
 
 
+
     class ViewHolder(row: View) : RecyclerView.ViewHolder(row) {
         val txtName: Button = row.findViewById<Button>(R.id.but_item_kategor)
         val open_kat: Button = row.findViewById<Button>(R.id.but_open_kategorii_list)
@@ -27,8 +28,8 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
         val context: Context = row.context
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.item_kategoriy, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_kategoriy, parent, false)
         return ViewHolder(itemView)
     }
 

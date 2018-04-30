@@ -9,7 +9,9 @@ import android.content.SharedPreferences
 import android.text.Spannable
 import android.graphics.Typeface
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
+import android.text.format.DateFormat
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
@@ -19,6 +21,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onPageChangeListener
 import org.json.JSONArray
 import org.json.JSONException
+import java.util.*
 
 
 class Main : FragmentActivity() {
@@ -34,6 +37,9 @@ class Main : FragmentActivity() {
         var face: Typeface? = null
         //для текста
         var text: Spannable? = null
+
+
+        val USERAGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 YaBrowser/18.2.1.174 Yowser/2.5 Safari/537.36"
 
 
         var COLOR_FON: Int = 0
@@ -102,6 +108,31 @@ class Main : FragmentActivity() {
             return urls
         }
         //*************************************************************************************************
+
+        fun return_data():String{
+            val d = DateFormat.format("dd", Date()) as String //yyyy-MM-dd kk:mm:ss   день
+            val m = Main.return_mesac(DateFormat.format("M", Date()) as String)
+            return d+ return_mesac(m)
+        }
+
+
+        fun return_mesac(nomer_mecaca: String): String {
+            when (nomer_mecaca) {
+                "1" -> return " Января"
+                "2" -> return " Февраля"
+                "3" -> return " Марта"
+                "4" -> return " Апреля"
+                "5" -> return " Мая"
+                "6" -> return " Июня"
+                "7" -> return " Июля"
+                "8" -> return " Августа"
+                "9" -> return " Сентября"
+                "10" -> return " Октября"
+                "11" -> return " Ноября"
+                "12" -> return " Декабря"
+            }
+            return nomer_mecaca
+        }
       }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,19 +149,19 @@ class Main : FragmentActivity() {
 
         //ставим цвет фона
         if (save_read_int("color_fon") == 0) {
-            COLOR_FON = resources.getColor(R.color.colorFonDefoult)
+            COLOR_FON = ContextCompat.getColor(this,R.color.colorFonDefoult)
         } else {
             COLOR_FON = save_read_int("color_fon")
         }
         //ставим цвет постов
         if (save_read_int("color_post1") == 0) {
-            COLOR_ITEM = resources.getColor(R.color.colorFon_tovaraDefoult)
+            COLOR_ITEM = ContextCompat.getColor(this,R.color.colorFon_tovaraDefoult)
         } else {
             COLOR_ITEM = save_read_int("color_post1")
         }
         //ставим цвеи текста
         if (save_read_int("color_text") == 0) {
-            COLOR_TEXT = resources.getColor(R.color.colorText_tovarDefoult)
+            COLOR_TEXT = ContextCompat.getColor(this,R.color.colorText_tovarDefoult)
         } else {
             COLOR_TEXT = save_read_int("color_text")
         }

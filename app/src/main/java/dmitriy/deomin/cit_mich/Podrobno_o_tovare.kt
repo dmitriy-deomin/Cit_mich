@@ -99,35 +99,35 @@ class Podrobno_o_tovare : Activity() {
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava1.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava2.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava2.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.get().load(url_pik[1]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava3.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava3.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.get().load(url_pik[2]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava4.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava4.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.get().load(url_pik[3]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
         imageView_ava5.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(ctx, R.anim.alfa)
             imageView_ava5.startAnimation(anim)
             //рисуем картинку
-            Picasso.with(ctx).load(url_pik[4]).transform(transformation).into(imageView_ava_tovara_podrobno)
+            Picasso.get().load(url_pik[4]).transform(transformation).into(imageView_ava_tovara_podrobno)
         }
 
 
@@ -191,7 +191,7 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava4.visibility = View.GONE
                 imageView_ava5.visibility =View.GONE
                 //рисуем картинку
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
             }
             (img_count == 2) -> {
                 imageView_ava1.visibility =View.VISIBLE
@@ -199,9 +199,9 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.GONE
                 imageView_ava4.visibility =View.GONE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.get().load(url_pik[1]).transform(transformation).into(imageView_ava2)
             }
             (img_count == 3) -> {
                 imageView_ava1.visibility =View.VISIBLE
@@ -209,10 +209,10 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.GONE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.get().load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.get().load(url_pik[2]).transform(transformation).into(imageView_ava3)
             }
             (img_count == 4)->{
                 imageView_ava1.visibility =View.VISIBLE
@@ -220,11 +220,11 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.VISIBLE
                 imageView_ava5.visibility =View.GONE
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
-                Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava4)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.get().load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.get().load(url_pik[2]).transform(transformation).into(imageView_ava3)
+                Picasso.get().load(url_pik[3]).transform(transformation).into(imageView_ava4)
             }
             (img_count > 4 )->{
                 imageView_ava1.visibility =View.VISIBLE
@@ -232,12 +232,12 @@ class Podrobno_o_tovare : Activity() {
                 imageView_ava3.visibility =View.VISIBLE
                 imageView_ava4.visibility =View.VISIBLE
                 imageView_ava5.visibility =View.VISIBLE
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
-                Picasso.with(ctx).load(url_pik[0]).transform(transformation).into(imageView_ava1)
-                Picasso.with(ctx).load(url_pik[1]).transform(transformation).into(imageView_ava2)
-                Picasso.with(ctx).load(url_pik[2]).transform(transformation).into(imageView_ava3)
-                Picasso.with(ctx).load(url_pik[3]).transform(transformation).into(imageView_ava4)
-                Picasso.with(ctx).load(url_pik[4]).transform(transformation).into(imageView_ava5)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava_tovara_podrobno)
+                Picasso.get().load(url_pik[0]).transform(transformation).into(imageView_ava1)
+                Picasso.get().load(url_pik[1]).transform(transformation).into(imageView_ava2)
+                Picasso.get().load(url_pik[2]).transform(transformation).into(imageView_ava3)
+                Picasso.get().load(url_pik[3]).transform(transformation).into(imageView_ava4)
+                Picasso.get().load(url_pik[4]).transform(transformation).into(imageView_ava5)
             }
         }
     }

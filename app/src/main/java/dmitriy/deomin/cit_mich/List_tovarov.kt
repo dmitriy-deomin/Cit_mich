@@ -5,16 +5,16 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.text.format.DateFormat
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
-import android.widget.*
 import dmitriy.deomin.cit_mich.pager.tovar_nedeli.Adapter_tovar_nedeli
 import kotlinx.android.synthetic.main.list_tovarov.*
 import kotlinx.coroutines.experimental.android.UI
@@ -27,6 +27,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import java.util.*
 
 
 //универсальный класс для всех типов товаров с подгрузкой страниц, и сменой вида списка
@@ -57,12 +58,23 @@ class List_tovarov : Activity() {
         name_kat = intent.extras.getString("name_kat")
 
         //получаем наш листвью
-        list_tovar_spisok = list_tovary_spisok
+        list_tovar_spisok = this.list_tovary_spisok
 
         //установим шрифт
         //---------------------------
-        button_title_list.typeface = Main.face
+        title_categoriy.typeface = Main.face
         //-------------------------------
+
+        //установим название
+        title_categoriy.text= name_kat
+
+        //будем слушать нажатия на заголовок
+        title_categoriy.onClick {
+            //играем анимацию
+            val anim = AnimationUtils.loadAnimation(this@List_tovarov, R.anim.alfa)
+            title_categoriy.startAnimation(anim)
+        }
+
 
         //и будем слушать сигналы
         //***************************************************************************
@@ -104,8 +116,15 @@ class List_tovarov : Activity() {
         //если есть сохранёные данные загрузим их(загрузка сразу после выключчения анимации)
         if (title.size > 1) {
             run_animacia(false)
-            //скажем что грузим сохранялку
-            toast("сохранёные данные")
+            //покажем дату обновления данных
+            if(Main.save_read(name_kat)==Main.return_data()){
+                //если свежак скроем
+                data_update_data.visibility=View.GONE
+            }else{
+                data_update_data.visibility=View.VISIBLE
+                data_update_data.text = "Данные от "+Main.save_read(name_kat)
+            }
+
         }
         else {
             //если интернет есть будем грузить
@@ -118,27 +137,52 @@ class List_tovarov : Activity() {
                         applicationContext.sendBroadcast(Intent("signal_dla_list_tovarov_spisok").putExtra("visible", true))
                         //********************************************************
 
-                        //выполняем запрос и получаем полный список товаров категории
-                        val doc: Document? = Jsoup.connect(url_list + "?SHOWALL_1=1").get()
-
                         //Напишем что идёт загрузка данных
-                        button_title_list.text = "Загруженно"
+                        title_categoriy.text = "выполняется загрузка...."
 
-                        //блок со всем списком товаровов
-                        val element: Element? = doc?.selectFirst(".bx_catalog_list_home")!!
+                        //выполним запрос и получим
+                        var doc: Document? = null
+                        try {
+                            //SHOWALL_1=1 -  грузит весь список,удобно но работает очень долго
+                            //PAGEN_1=1  - постранично быстрей работает
+                            //doc = Jsoup.connect(url_list + "?SHOWALL_1=1").userAgent("Mozilla").get()
+                            doc = Jsoup.connect(url_list + "?SHOWALL_1=1").userAgent(Main.USERAGENT).get()
+                        }catch (e:Exception){
+                            //Напишем ошибку
+                            title_categoriy.text = "Ошибочка:"+e.message.toString()+"\n попробуйте еще раз"
+                            //пошлём сигнал для скрытия прогрессбара
+                            //********************************************************
+                            applicationContext.sendBroadcast(Intent("signal_dla_list_tovarov_spisok").putExtra("visible", false))
+                            //********************************************************
+                        }
 
-                        //Напишем что идёт загрузка данных
-                        button_title_list.text = "Составленно"
+
+                        title_categoriy.text = "Загруженно"
+
+                        //получим блок со всем списком товаровов
+                        var element: Element? = null
+                        try {
+                            element = doc?.selectFirst(".bx_catalog_list_home")
+                        }catch (e:Exception){
+                            //Напишем ошибку
+                            title_categoriy.text = e.message.toString()
+                        }
+
+
+                        title_categoriy.text =  "Распарсенно"
 
                         //список товаров списком
                         val elements: Elements = element?.select(".bx_catalog_item_container")!!
 
+                        title_categoriy.text =  "Список составлен"
+
+
                         //Напишем что идёт загрузка данных
-                        button_title_list.text = "Обработка элементов 0/" + elements.size.toString()
+                        title_categoriy.text =  "Обработка элементов 0/" + elements.size.toString()
 
                         //временые переменые для хранения
                         val bonus: ArrayList<String> = ArrayList()
-                        val title: ArrayList<String> = ArrayList()
+                        val titles: ArrayList<String> = ArrayList()
                         val cena: ArrayList<String> = ArrayList()
                         val nalichie: ArrayList<String> = ArrayList()
                         val podrobno: ArrayList<String> = ArrayList()
@@ -148,7 +192,7 @@ class List_tovarov : Activity() {
                         for (i in elements.indices) {
                             bonus.add(i, elements[i]?.selectFirst(".bonus-section-list")?.text()
                                     ?: "-")
-                            title.add(i, elements[i]?.selectFirst(".bx_catalog_item_title")?.text()
+                            titles.add(i, elements[i]?.selectFirst(".bx_catalog_item_title")?.text()
                                     ?: "-")
                             cena.add(i, elements[i]?.selectFirst(".bx_catalog_item_price")?.text()
                                     ?: "-")
@@ -162,24 +206,27 @@ class List_tovarov : Activity() {
                                     ?.replace("')", ""))
 
                             //Напишем что идёт обработка
-                            button_title_list.text = "Обработка элементов $i/" + elements.size.toString()
+                            title_categoriy.text =  "Обработка элементов $i/" + elements.size.toString()
                         }
 
                         //Напишем что идёт загрузка данных
-                        button_title_list.text = "Сохранение"
+                        title_categoriy.text =  "Сохранение"
 
 
                         //и сохраняем в память все
                         Main.save_arraylist("bonus" + url_list, bonus)
-                        Main.save_arraylist("title" + url_list, title)
+                        Main.save_arraylist("title" + url_list, titles)
                         Main.save_arraylist("cena" + url_list, cena)
                         Main.save_arraylist("nalichie" + url_list, nalichie)
                         Main.save_arraylist("podrobno" + url_list, podrobno)
                         Main.save_arraylist("picture" + url_list, picture)
 
+                        //и сохраним дату , чтобы знать когда обновляли
+                        Main.save_value(name_kat,Main.return_data())
+
 
                         //Напишем что идёт загрузка данных
-                        button_title_list.text = "Готово"
+                        title_categoriy.text =  "Готово"
 
                         //пошлём сигнал для скрытия прогрессбара
                         //********************************************************
@@ -189,19 +236,24 @@ class List_tovarov : Activity() {
                 }
             }else{
                 //если интернета нету
-                button_title_list.text = "Нет доступа к интернету"
+                title_categoriy.text = "Нет доступа к интернету"
                 conteiner_swipe_list_tovarov.visibility = View.GONE
             }
         }
     }
 
+    //показывает и скрывает нужные виджеты
     fun run_animacia(run: Boolean) {
         if (run) {
-            //Напишем что идёт загрузка данных
-            button_title_list.text = "выполняется загрузка...."
             //скрываем список
             conteiner_swipe_list_tovarov.visibility = View.GONE
+            //показываем текстовое поле прогресса
+            progress.visibility = View.VISIBLE
         } else {
+            //скроем текстовый прогрес
+            progress.visibility = View.GONE
+            //если свежак скроем
+            data_update_data.visibility=View.GONE
             //показываем список
             conteiner_swipe_list_tovarov.visibility = View.VISIBLE
             //загружаем в него данные
@@ -230,7 +282,7 @@ class List_tovarov : Activity() {
 
 
         //поставим в титл название категории и количество товаров
-        button_title_list.text = name_kat+", товаров:"+title.size.toString()
+        title_categoriy.text = name_kat+", товаров:"+title.size.toString()
 
 
         val result = ArrayList<Map<String, String>>()
@@ -253,4 +305,7 @@ class List_tovarov : Activity() {
         val netInfo = cm!!.activeNetworkInfo
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
+
+
+
 }

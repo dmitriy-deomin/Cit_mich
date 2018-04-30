@@ -89,7 +89,7 @@ class Kategoris : Fragment() {
                 bg {
                     //пошлём сигнал для показа прогрессбара
                     //********************************************************
-                    getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa_kat").putExtra("visible", true))
+                    getContext()!!.applicationContext.sendBroadcast(Intent("signal_dla_progressa_kat").putExtra("visible", true))
                     //********************************************************
 
                     val doc: Document? = Jsoup.connect("http://www.cit-tmb.ru/catalog/").get()
@@ -100,26 +100,26 @@ class Kategoris : Fragment() {
 
 
                     //список товаров списком
-                    val elements: Elements = element?.select(".bx_catalog_text_title")
+                    val elements: Elements = element.select(".bx_catalog_text_title")
 
                     //временые переменые для хранения
-                   val title: ArrayList<String> = ArrayList()
+                   val titles: ArrayList<String> = ArrayList()
                    val title_url: ArrayList<String> = ArrayList()
 
 
                     //заполняем в цикле их
                     for (i in elements.indices) {
-                        title.add(i,elements[i]?.selectFirst("a")?.text()?:"-")
+                        titles.add(i,elements[i]?.selectFirst("a")?.text()?:"-")
                         title_url.add(i, "http://www.cit-tmb.ru" + elements[i]?.selectFirst("a")
                                 ?.attr("href"))
                     }
                     //и сохраняем в память все
-                    Main.save_arraylist("title_list_kateg", title)
+                    Main.save_arraylist("title_list_kateg", titles)
                     Main.save_arraylist("title_url_list_kateg", title_url)
 
                     //пошлём сигнал для скрытия прогрессбара
                     //********************************************************
-                    getContext().applicationContext.sendBroadcast(Intent("signal_dla_progressa_kat")
+                    getContext()?.applicationContext?.sendBroadcast(Intent("signal_dla_progressa_kat")
                             .putExtra("visible", false))
                     //********************************************************
                 }
@@ -134,7 +134,7 @@ class Kategoris : Fragment() {
         }else{
             progres.visibility = View.GONE
             list_tovar.visibility = View.VISIBLE
-            load_listview(context)
+            load_listview(this.context!!)
         }
     }
 

@@ -9,10 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.LinearLayout
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import dmitriy.deomin.cit_mich.List_tovarov
 import dmitriy.deomin.cit_mich.Main
-import dmitriy.deomin.cit_mich.Podrobno_o_tovare
 import dmitriy.deomin.cit_mich.R
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -24,7 +23,8 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
     class ViewHolder(row: View) : RecyclerView.ViewHolder(row) {
         val txtName: Button = row.findViewById<Button>(R.id.but_item_kategor)
         val open_kat: Button = row.findViewById<Button>(R.id.but_open_kategorii_list)
-        val conteiner: LinearLayout = row.findViewById<LinearLayout>(R.id.list_kategori_open_loaut)
+        val podlist_kategorii: ExpandableRelativeLayout = row.findViewById<ExpandableRelativeLayout>(R.id.expandableLayout_podlist_kategorii)
+        val podlist:RecyclerView = row.findViewById<RecyclerView>(R.id.podlist_kategorii)
         val context: Context = row.context
     }
 
@@ -49,6 +49,10 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
         //ставим название категории
         holder.txtName.text = items[position]["title"].toString()
 
+        //убираем подлисты
+        holder.podlist_kategorii.collapse()
+
+
         holder.txtName.onClick {
             //играем анимацию
             val anim = AnimationUtils.loadAnimation(holder.context, R.anim.alfa)
@@ -67,22 +71,16 @@ class Adapter_kat_list(private var items: ArrayList<Map<String, String>>): Recyc
             val anim = AnimationUtils.loadAnimation(holder.context, R.anim.alfa)
             holder.open_kat.startAnimation(anim)
             //меняем надпись на кноке(свернуть\развернуть)
-            if(holder.open_kat.text=="+")
-            {
+            if(holder.open_kat.text=="+") {
                 holder.open_kat.text="-"
-                holder.conteiner.visibility = View.VISIBLE
+                holder.podlist_kategorii.toggle()
             }
-            else
-            {
+            else {
                 holder.open_kat.text="+"
-                holder.conteiner.visibility = View.GONE
+                holder.podlist_kategorii.collapse()
             }
+
         }
-
-
-    }
-    fun open_kategoriu(kat:String){
-
     }
 
 

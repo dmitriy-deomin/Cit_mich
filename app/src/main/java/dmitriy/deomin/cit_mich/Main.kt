@@ -222,27 +222,27 @@ class Main : FragmentActivity() {
         when(number){
             0->{
                 but_news.typeface = Typeface.DEFAULT_BOLD
-                but_tovar_dna.typeface = Typeface.DEFAULT
-                but_kagoriy.typeface = Typeface.DEFAULT
-                but_info.typeface = Typeface.DEFAULT
+                but_tovar_dna.typeface = face
+                but_kagoriy.typeface = face
+                but_info.typeface = face
             }
             1->{
                 but_tovar_dna.typeface = Typeface.DEFAULT_BOLD
-                but_news.typeface = Typeface.DEFAULT
-                but_kagoriy.typeface = Typeface.DEFAULT
-                but_info.typeface = Typeface.DEFAULT
+                but_news.typeface = face
+                but_kagoriy.typeface = face
+                but_info.typeface = face
             }
             2->{
                 but_kagoriy.typeface = Typeface.DEFAULT_BOLD
-                but_news.typeface = Typeface.DEFAULT
-                but_tovar_dna.typeface = Typeface.DEFAULT
-                but_info.typeface = Typeface.DEFAULT
+                but_news.typeface = face
+                but_tovar_dna.typeface = face
+                but_info.typeface = face
             }
             3->{
                 but_info.typeface = Typeface.DEFAULT_BOLD
-                but_kagoriy.typeface = Typeface.DEFAULT
-                but_news.typeface = Typeface.DEFAULT
-                but_tovar_dna.typeface = Typeface.DEFAULT
+                but_kagoriy.typeface = face
+                but_news.typeface = face
+                but_tovar_dna.typeface = face
             }
         }
 

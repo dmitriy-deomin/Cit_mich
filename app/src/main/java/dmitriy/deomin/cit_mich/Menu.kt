@@ -39,7 +39,7 @@ class Menu : Activity() {
         send_mail.onClick { expandableLayout_send_mail.toggle() }
 
         telegram.onClick {
-            val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@DmitriyDeomin"))
+            val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/DmitriyDeomin"))
             startActivity(browseIntent)
         }
         vk.onClick {

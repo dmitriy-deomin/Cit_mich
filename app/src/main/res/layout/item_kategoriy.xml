@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorFonDefoult"
@@ -31,24 +32,27 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/list_kategori_open_loaut"
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout_podlist_kategorii"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:paddingLeft="47dp"
+        app:ael_duration="500"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
 
-        <Button
-            android:id="@+id/but_item_kategor2"
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:background="@color/colorFonDefoult"
-            android:gravity="left|center"
-            android:padding="7dp"
-            android:text="Button"
-            android:textColor="@color/colorText_tovarDefoult"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:text="TextView" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/podlist_kategorii"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 </LinearLayout>

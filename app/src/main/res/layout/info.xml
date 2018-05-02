@@ -1,8 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fon_info"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorFonDefoult"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Контакты:"
+                android:textColor="@color/colorText_tovarDefoult"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/roznichniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="МАГАЗИН (РОЗНИЧНЫЙ ОТДЕЛ)" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutroznichniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roznichniy_otdel" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/korporotivniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="КОРПОРАТИВНЫЙ ОТДЕЛ" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutkorporotivniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/korporotivniy_otdel" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/internet_magazin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ИНТЕРНЕТ-МАГАЗИН" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutinternet_magazin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/internet_magazin" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tenderniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ТЕНДЕРНЫЙ ОТДЕЛ" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayouttenderniy_otdel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tenderniy_otdel" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/otdel_zakupok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ОТДЕЛ ЗАКУПОК" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutotdel_zakupok"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otdel_zakupok" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/otdel_marketinga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ОТДЕЛ МАРКЕТИНГА" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutotdel_marketinga"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otdel_marketinga" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/servis_centr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="СЕРВИСНЫЙ ЦЕНТР" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutservis_centr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/servis_centr" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/otdel_avtomatizacii"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ОТДЕЛ АВТОМАТИЗАЦИИ(1С) " />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayoutotdel_avtomatizacii"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otdel_avtomatizacii" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <TextView
+                android:id="@+id/adres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adres"
+                android:textColor="@color/colorText_tovarDefoult" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Схема проезда" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/map_road" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
 
 </LinearLayout>

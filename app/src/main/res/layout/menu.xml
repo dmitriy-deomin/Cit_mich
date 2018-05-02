@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -15,7 +17,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,7 +26,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="версия"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/colorText_Cena" />
 
     <TextView
         android:id="@+id/used_library"
@@ -38,7 +40,7 @@
         android:id="@+id/textView_librariry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="jsoup, picasso,recyclerview-fastscroll"
+        android:text="@string/used_library"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
@@ -46,6 +48,7 @@
         android:id="@+id/textView_ifo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text=" Вся информация ,каталог товаров берется с www.cit-tmb.ru"
         android:textColor="@android:color/black"
         android:textSize="10sp" />
@@ -54,6 +57,62 @@
         android:id="@+id/button_edit_fonts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
-        android:text="Изменить шрифт" />
+        android:text="Изменить шрифт"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/donat"
+        android:textColor="@color/colorText_tovarDefoult"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/send_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorText_tovarDefoult"
+        android:text="Написать пожелание,замечание" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout_send_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_duration="500"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/vk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText_tovarDefoult"
+                android:text="Vkontakte" />
+
+            <TextView
+                android:id="@+id/telegram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText_tovarDefoult"
+                android:text="Telegram" />
+
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText_tovarDefoult"
+                android:text="58627@bk.ru" />
+        </LinearLayout>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 </LinearLayout>

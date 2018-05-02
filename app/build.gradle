@@ -10,8 +10,8 @@ android {
         applicationId "dmitriy.deomin.cit_mich"
         minSdkVersion 15
         targetSdkVersion 19
-        versionCode 3
-        versionName "0.3"
+        versionCode 4
+        versionName "0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     //эта дич нужна чтобы получить версию приложения стрингом
@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.makeramen:roundedimageview:2.2.1'
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.17'
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
 
 
 }

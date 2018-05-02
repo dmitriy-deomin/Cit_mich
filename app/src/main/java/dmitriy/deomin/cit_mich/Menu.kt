@@ -6,6 +6,9 @@ import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.menu.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.startActivity
+import android.content.Intent
+import android.net.Uri
+
 
 class Menu : Activity() {
 
@@ -30,6 +33,25 @@ class Menu : Activity() {
             button_edit_fonts.startAnimation(anim)
             startActivity<Fonts_vibor>()
         }
+
+        //развернёт список с контактами
+        expandableLayout_send_mail.collapse()
+        send_mail.onClick { expandableLayout_send_mail.toggle() }
+
+        telegram.onClick {
+            val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@DmitriyDeomin"))
+            startActivity(browseIntent)
+        }
+        vk.onClick {
+            val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/dmitriydeomin"))
+            startActivity(browseIntent)
+        }
+        mail.onClick {
+            val uri = Uri.parse("mailto:58627@bk.ru")
+            val it = Intent(Intent.ACTION_SENDTO, uri)
+            startActivity(it)
+        }
+
     }
 
 

@@ -45,7 +45,7 @@ class Podrobno_o_tovare : Activity() {
 
         //установим шрифт
         //-----------------------------------
-        textView_name_tovara_podrobno.typeface = Main.face
+        name_tovara_podrobno.typeface = Main.face
         textView_artikul_tovara_podrobno.typeface = Main.face
         textView_cena_tovara_podrobno.typeface = Main.face
         textView_bonus_tovara_podrobno.typeface = Main.face
@@ -136,47 +136,73 @@ class Podrobno_o_tovare : Activity() {
                 async(UI) {
                     //выполняем в новом потоке
                     bg {
-                        val doc: Document? = Jsoup.connect(podrobno_url).get()
+                        //Напишем что идёт загрузка данных
+                        name_tovara_podrobno.text = "Выполняется загрузка...."
+                        var doc: Document? = null
+                        try {
+                            doc = Jsoup.connect(podrobno_url).userAgent(Main.USERAGENT).get()
+                        }catch (e:Exception){
+                            //Напишем ошибку
+                            name_tovara_podrobno.text = "Ошибочка:"+e.message.toString()+"\n попробуйте еще раз"
 
-                        //название товара
+                            //пошлём сигнал для скрытия прогрессбара
+                            //********************************************************
+                            applicationContext.sendBroadcast(Intent("signal_dla_pokaza_podrobo"))
+                            //********************************************************
+                        }
+
+                        name_tovara_podrobno.text ="Парсим название..."
                         val title: String? = doc?.selectFirst(".bx_item_title")?.text()?:"-"
-                        //артикул
+
+                        name_tovara_podrobno.text ="Парсим артикул..."
                         val artikul: String? = doc?.selectFirst(".articul")?.text()?:"-"
-                        //цена
+
+                        name_tovara_podrobno.text ="Парсим цену..."
                         val cena: String? = doc?.selectFirst(".item_current_price")?.text()?:"-"
-                        //бонусы
+
+                        name_tovara_podrobno.text ="Парсим бонусы..."
                         val bonus: String? = doc?.selectFirst(".bonus-section")?.text()?:"-"
-                        //наличие товара
-                        val nalichie: String? = doc?.selectFirst(".item_buttons")?.text()?.substring(10,35)?:"-"
-                        //описание товара полное
+
+                        name_tovara_podrobno.text ="Парсим наличие товара..."
+                        var nalichie: String? = doc?.selectFirst(".item_buttons")?.text()?:"-"
+                        if(nalichie?.length!! >2){
+                            if(!nalichie.contains("Нет в наличии На заказ")){
+                                nalichie = nalichie.replace("В корзину ","")
+                                nalichie = nalichie.replace("Купить в кредит","")
+                            }
+                        }
+
+                        name_tovara_podrobno.text ="Парсим полное описание..."
                         val opisanie: String? = doc?.selectFirst(".bx_item_description")?.toString()
                                 ?.replace("br","\n")
                                 ?.replace("&nbsp;","")
                                 ?.substringBefore("</p>")
                                 ?.substringAfter("hidden;\">")?:"-"
 
+
+                        name_tovara_podrobno.text ="Состовляем список картинок..."
                         val pik_list:Elements = doc?.selectFirst(".bx_slide")?.select("li")!!
 
+
+                        name_tovara_podrobno.text ="Парсим список картинок..."
                         var kesh:String
                         for (i in pik_list.indices) {
                             kesh = pik_list[i]?.selectFirst(".cnt_item")?.attr("style")!!
                             url_pik.add(i,"http://www.cit-tmb.ru"+kesh.substring(22,kesh.length-3))
                         }
 
-
                         //пошлём сигнал для скрытия прогрессбара и показа инфы
                         //********************************************************
                         applicationContext.sendBroadcast(Intent("signal_dla_pokaza_podrobo"))
                         //********************************************************
 
-
-                        textView_name_tovara_podrobno.text = title
+                        //загружаем получиную инфу в виджеты
+                        name_tovara_podrobno.text = title
                         textView_artikul_tovara_podrobno.text = artikul
                         textView_cena_tovara_podrobno.text = "Цена: "+cena
                         textView_bonus_tovara_podrobno.text = bonus
                         textView_nalichie_tovara_podrobno.text = nalichie
                         textView_opisanie_tovara_podrobno.text = "Полное описание: \n"+opisanie
-
                     }
                 }
     }

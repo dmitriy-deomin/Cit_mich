@@ -48,8 +48,8 @@ class Menu : Activity() {
         }
         mail.onClick {
             val uri = Uri.parse("mailto:58627@bk.ru")
-            val it = Intent(Intent.ACTION_SENDTO, uri)
-            startActivity(it)
+            val i = Intent(Intent.ACTION_SENDTO, uri)
+            startActivity(i)
         }
 
     }

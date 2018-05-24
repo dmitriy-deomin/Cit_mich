@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorFonDefoult"
@@ -43,16 +44,17 @@
         app:ael_orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/textView2"
+        <ProgressBar
+            android:id="@+id/progres_load_podkategorii"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/podlist_kategorii"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 </LinearLayout>

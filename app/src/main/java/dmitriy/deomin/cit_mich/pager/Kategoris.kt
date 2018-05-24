@@ -29,11 +29,6 @@ import org.jsoup.select.Elements
 
 class Kategoris : Fragment() {
 
-//    override fun onPause() {
-//       context.unregisterReceiver(broadcastReceiver)
-//        super.onPause()
-//    }
-
     lateinit var list_tovar:RecyclerView
     lateinit var progres: ProgressBar
     lateinit var broadcastReceiver:BroadcastReceiver
@@ -165,5 +160,11 @@ class Kategoris : Fragment() {
 
         return result
     }
+
+
+    //    override fun onPause() {
+//       context.unregisterReceiver(broadcastReceiver)
+//        super.onPause()
+//    }
 
 }
